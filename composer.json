@@ -1,0 +1,19 @@
+{
+    "name": "mattwoo/subrip",
+    "description": "Subrip file parser for PHP",
+    "type": "library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Mateusz Westwalewicz",
+            "email": "vu.mateusz@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "Mattwoo\\Subrip\\": "src/Subrip"
+        }
+    }
+}
