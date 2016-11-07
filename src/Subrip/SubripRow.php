@@ -28,7 +28,7 @@ class SubripRow
      * @param $text
      * @param $styles
      */
-    public function __construct($sequence, $startTime, $endTime, $text, $styles = null)
+    public function __construct($sequence, $startTime, $endTime, $text, SubripStyleInterface $styles = null)
     {
         $this->sequence = $sequence;
         $this->startTime = $startTime;

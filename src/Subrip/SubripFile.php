@@ -12,28 +12,51 @@ namespace Mattwoo\Subrip;
 class SubripFile
 {
 
-    const FILE_REGEX = '/[0-9]+(?:\r\n|\r|\n)([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3}) --> ([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3})(?:\r\n|\r|\n)((?:.*(?:\r\n|\r|\n))*?)(?:\r\n|\r|\n)/';
+    const FILE_REGEX = '/([0-9]+)(?:\r\n|\r|\n)([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3}) --> ([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3})(?:.*)(?:\r\n|\r|\n)((?:.*(?:\r\n|\r|\n))*?)(?:\r\n|\r|\n)/';
 
     private $rows = [];
 
-    public function __construct($path = null)
+    /**
+     * SubripFile constructor.
+     * @param null $content
+     */
+    public function __construct($content = null)
     {
-        if (null !== $path) {
-            if (!file_exists($path)) {
-                throw new \InvalidArgumentException(sprintf('File: %s does not exist.', $path));
+        if (null !== $content) {
+            if (empty($content)) {
+                throw new \InvalidArgumentException('Content is empty');
             }
-            $this->createFromFile(file_get_contents($path));
+            $this->parseFile($content);
         }
     }
 
-    private function createFromFile($content){
+    /**
+     * @param $content
+     * @return SubripFile
+     * @throws SubripValidationException
+     */
+    private function parseFile($content)
+    {
         preg_match_all(self::FILE_REGEX, $content, $matched);
-        if(count($matched) == 0) {
+        if (count($matched) == 0) {
             throw new SubripValidationException('Invalid file format.');
         }
-        foreach($matched as $item){
-            print_r($item);
+        $lastSeqNumber = 0;
+        for ($i = 0; $i < count($matched[0]); $i++) {
+            $seqNumber = $matched[1][$i];
+            if ($seqNumber <= $lastSeqNumber) {
+                throw new SubripValidationException('Sequence numbers are not growing.');
+            }
+            $row = new SubripRow($matched[1][$i], $matched[2][$i], $matched[3][$i], $matched[4][$i]);
+            $this->addRow($row);
+            $lastSeqNumber = $seqNumber;
         }
+        return $this;
+    }
+
+    public function getRows()
+    {
+        return $this->rows;
     }
 
     /**
