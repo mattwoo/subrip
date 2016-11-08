@@ -57,8 +57,9 @@ class SubripRow
 
     public function __toString()
     {
+        $styles = $this->styles instanceof SubripStyleInterface ? $this->styles->__toString() : '';
         return $this->sequence.PHP_EOL.
-        $this->startTime.' --> '.$this->endTime.PHP_EOL.
+        $this->startTime.' --> '.$this->endTime.$styles.PHP_EOL.
         $this->text.PHP_EOL.PHP_EOL;
     }
 

@@ -19,7 +19,7 @@ class SubripRowTest extends TestCase
      */
     public function testThrowsExceptionOnInvalidStartTimeFormat()
     {
-        $row = new SubripRow(1,'asd', '00:00:00,000', 'asd');
+        $row = new SubripRow(1, 'asd', '00:00:00,000', 'asd');
         $row->validate();
     }
 
@@ -28,7 +28,7 @@ class SubripRowTest extends TestCase
      */
     public function testThrowsExceptionOnInvalidEndTimeFormat()
     {
-        $row = new SubripRow(1,'00:00:00,000', 'asd', 'test');
+        $row = new SubripRow(1, '00:00:00,000', 'asd', 'test');
         $row->validate();
     }
 
@@ -37,18 +37,20 @@ class SubripRowTest extends TestCase
      */
     public function testThrowsExceptionOnEmptyText()
     {
-        $row = new SubripRow(1,'asd', 'asd', '');
+        $row = new SubripRow(1, 'asd', 'asd', '');
         $row->validate();
     }
 
-    public function testReturnsTrueOnValidTime(){
-        $row = new SubripRow(1,'00:00:00,000', '00:00:00,000', 'text');
+    public function testReturnsTrueOnValidTime()
+    {
+        $row = new SubripRow(1, '00:00:00,000', '00:00:00,000', 'text');
         $res = $row->validate();
         $this->assertTrue($res);
     }
 
-    public function testToString(){
-        $row = new SubripRow(1,'00:00:00,000', '01:01:01,001', 'test');
+    public function testToString()
+    {
+        $row = new SubripRow(1, '00:00:00,000', '01:01:01,001', 'test');
         $res = $row->__toString();
 
         $expected = <<<EXPECTED

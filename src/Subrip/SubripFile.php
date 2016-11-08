@@ -12,7 +12,7 @@ namespace Mattwoo\Subrip;
 class SubripFile
 {
 
-    const FILE_REGEX = '/([0-9]+)(?:\r\n|\r|\n)([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3}) --> ([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3})(?:.*)(?:\r\n|\r|\n)((?:.*(?:\r\n|\r|\n))*?)(?:\r\n|\r|\n)/';
+    const FILE_REGEX = '/([0-9]+)(?:\r\n|\r|\n)([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3}) --> ([0-9]{2}:[0-9]{2}:[0-9]{2}(?:,|\.)[0-9]{3})(.*)(?:\r\n|\r|\n)((?:.*(?:\r\n|\r|\n))*?)(?:\r\n|\r|\n)/';
 
     private $rows = [];
 
@@ -47,7 +47,8 @@ class SubripFile
             if ($seqNumber <= $lastSeqNumber) {
                 throw new SubripValidationException('Sequence numbers are not growing.');
             }
-            $row = new SubripRow($matched[1][$i], $matched[2][$i], $matched[3][$i], $matched[4][$i]);
+            $styles = SubripPosition::createFromFile($matched[0][$i]);
+            $row = new SubripRow($matched[1][$i], $matched[2][$i], $matched[3][$i], $matched[5][$i], $styles);
             $this->addRow($row);
             $lastSeqNumber = $seqNumber;
         }
