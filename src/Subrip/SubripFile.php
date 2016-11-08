@@ -30,6 +30,15 @@ class SubripFile
         }
     }
 
+    public function resetSequence()
+    {
+        $seq = 1;
+        /** @var SubripRow $row */
+        foreach($this->getRows() as $row){
+            $row->setSequence($seq++);
+        }
+    }
+
     /**
      * @param $content
      * @return SubripFile

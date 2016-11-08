@@ -37,6 +37,11 @@ class SubripRow
         $this->styles = $styles;
     }
 
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+    }
+
     /**
      * @return mixed
      */

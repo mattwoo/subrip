@@ -11,10 +11,39 @@ namespace Mattwoo\Subrip\Test;
 
 use Mattwoo\Subrip\SubripFile;
 use Mattwoo\Subrip\SubripRow;
-use Mattwoo\Subrip\SubripValidationException;
 
 class SubripFileTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function testResetSequenceNumbers()
+    {
+
+        $row4 = new SubripRow(3, '00:00:00.010', '00:00:00,012', 'test');
+        $row = new SubripRow(2, '00:00:00.010', '00:00:00,012', 'test');
+        $row2 = new SubripRow(4, '00:00:00.010', '00:00:00,012', 'test');
+        $row3 = new SubripRow(1, '00:00:00.010', '00:00:00,012', 'test');
+
+        $file = new SubripFile();
+        $file->addRow($row);
+        $file->addRow($row4);
+        $file->addRow($row2);
+        $file->addRow($row3);
+
+        $file->resetSequence();
+
+        $out = [];
+
+        /** @var SubripRow $row */
+        foreach ($file->getRows() as $row) {
+            $out[] = $row->getSequence();
+        }
+
+        $expected = [1, 2, 3, 4];
+
+        $this->assertEquals($expected, $out);
+
+
+    }
 
     /**
      * @expectedException \Mattwoo\Subrip\SubripValidationException
@@ -40,7 +69,7 @@ test
 
 CONTENT;
 
-        $file = new SubripFile($fileContent);
+       new SubripFile($fileContent);
 
     }
 
@@ -122,7 +151,7 @@ EXPECTED;
      */
     public function testThrowsExceptionOnEmptyFile()
     {
-        $obj = new SubripFile('');
+        new SubripFile('');
     }
 
 }
