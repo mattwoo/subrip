@@ -37,6 +37,45 @@ class SubripRow
         $this->styles = $styles;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @return SubripStyleInterface
+     */
+    public function getStyles(): SubripStyleInterface
+    {
+        return $this->styles;
+    }
 
     /**
      * @throws SubripValidationException
@@ -58,9 +97,9 @@ class SubripRow
     public function __toString()
     {
         $styles = $this->styles instanceof SubripStyleInterface ? $this->styles->__toString() : '';
-        return $this->sequence.PHP_EOL.
-        $this->startTime.' --> '.$this->endTime.$styles.PHP_EOL.
-        $this->text.PHP_EOL.PHP_EOL;
+        return $this->sequence . PHP_EOL .
+        $this->startTime . ' --> ' . $this->endTime . $styles . PHP_EOL .
+        $this->text . PHP_EOL . PHP_EOL;
     }
 
 }
