@@ -37,6 +37,38 @@ class SubripRow
         $this->styles = $styles;
     }
 
+    /**
+     * @param mixed $startTime
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    /**
+     * @param mixed $endTime
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+    }
+
+    /**
+     * @param mixed $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
+    /**
+     * @param SubripStyleInterface $styles
+     */
+    public function setStyles(SubripStyleInterface $styles)
+    {
+        $this->styles = $styles;
+    }
+
     public function setSequence($sequence)
     {
         $this->sequence = $sequence;
