@@ -1,5 +1,10 @@
 #Subrip (.srt) file  parser for PHP
 
+##Installation
+```
+composer require mattwoo/subrip
+```
+
 ###Creating srt file
 ```PHP
 //Create subtitle position
