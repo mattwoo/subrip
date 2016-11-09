@@ -109,7 +109,7 @@ class SubripRow
     /**
      * @return SubripStyleInterface
      */
-    public function getStyles(): SubripStyleInterface
+    public function getStyles()
     {
         return $this->styles;
     }
