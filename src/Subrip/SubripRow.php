@@ -64,7 +64,7 @@ class SubripRow
     /**
      * @param SubripStyleInterface $styles
      */
-    public function setStyles(SubripStyleInterface $styles)
+    public function setStyles(SubripStyleInterface $styles = null)
     {
         $this->styles = $styles;
     }
